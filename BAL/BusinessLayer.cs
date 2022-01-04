@@ -1,28 +1,48 @@
 ﻿using System;
 using System.Data;
 
-namespace IT481_Unit_2_Assignment.BAL
+using System.Diagnostics;
+
+namespace IT481_Unit_3_Assignment.BAL
 {
     class BusinessLayer
     {
         //Variables
-        private static string connString = @"Data Source=dellG3;Initial Catalog=Northwind;Integrated Security=true;TrustServerCertificate=true";
+        public static string connString;//@"Data Source=dellG3;Initial Catalog=Northwind;User Id=User_HR;Password=123456;TrustServerCertificate=true";
 
         //Class Initialization
-        DAL.DBAccessLayer dbAccess = new DAL.DBAccessLayer(connString);
+        DAL.DBAccessLayer dbAccess;
+
+        //Constructors
+        public BusinessLayer() { }
+        public BusinessLayer(string user, string password, string server, string database)
+        {
+            connString += @"Data Source=" + server + ";Initial Catalog=" + database + ";User Id=" + user + ";Password=" + password + ";TrustServerCertificate=true";
+            Debug.WriteLine(Environment.NewLine + "************ " + connString + Environment.NewLine);
+
+            dbAccess = new DAL.DBAccessLayer(connString);
+        }
 
         //Data Objects
         DataTable customerData = new DataTable();
+        DataTable employeeData = new DataTable();
+        DataTable orderData = new DataTable();
 
         //Methods
-        public string Load_Customer_Data()
+        public string Load_Data()
         {
             string status = "";
 
             try
             {
                 customerData = dbAccess.Get_Customers();
-                status = "Connection Established Successfully..." + Environment.NewLine + "Customer Data Loaded Successfully...";
+                employeeData = dbAccess.Get_Employees();
+                orderData = dbAccess.Get_Orders();
+
+//                if (customerData.Rows.Count == 0 && employeeData.Rows.Count == 0 && orderData.Rows.Count == 0)
+//                    status += "Invalid Login Credentials..." + Environment.NewLine + "Failed To Load Data...";
+//                else
+                    status += "Connection Established Successfully..." + Environment.NewLine + "Data Loaded Successfully...";
             }
             catch (Exception ex)
             {
@@ -31,37 +51,43 @@ namespace IT481_Unit_2_Assignment.BAL
 
             return status;
         }
-        public string Save_Customer_Data()
+        public DataTable Populate_DataGrid(int table)
         {
-            string status = "";
+            DataTable dt = new DataTable();
 
-            try
+            switch (table)
             {
-                dbAccess.Save_Customers(customerData);
-                status = "Database Successfully Updated...";
+                case 0:
+                    dt = customerData;
+                    break;
+                case 1: 
+                    dt =  employeeData;
+                    break;
+                case 2:
+                    dt =  orderData;
+                    break;
             }
-            catch (Exception ex)
+
+            return dt;
+        }
+        public int Count_Records(int table)
+        {
+            int numRec = 0;
+
+            switch (table)
             {
-                status = "Error" + ex.Message;
+                case 0:
+                    numRec = customerData.Rows.Count;
+                    break;
+                case 1:
+                    numRec = employeeData.Rows.Count;
+                    break;
+                case 2:
+                    numRec = orderData.Rows.Count;
+                    break;
             }
 
-            return status;
-        }
-        public DataTable Populate_DataGrid()
-        {
-            return customerData;
-        }
-        public int Count_Customer_Records()
-        {
-            return customerData.Rows.Count;
-        }
-        public void Add_Customer_Record(string id, string company)
-        {
-            DataRow row = customerData.NewRow();
-            row["CustomerID"] = id;
-            row["CompanyName"] = company;
-
-            customerData.Rows.Add(row);
+            return numRec;
         }
     }
 }

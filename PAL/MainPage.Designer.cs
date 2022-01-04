@@ -1,5 +1,5 @@
 ﻿
-namespace IT481_Unit_2_Assignment.PAL
+namespace IT481_Unit_3_Assignment.PAL
 {
     partial class MainPage
     {
@@ -30,12 +30,18 @@ namespace IT481_Unit_2_Assignment.PAL
         private void InitializeComponent()
         {
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.tableLabel = new System.Windows.Forms.Label();
+            this.tableComboBox = new System.Windows.Forms.ComboBox();
             this.addRecordGroup = new System.Windows.Forms.GroupBox();
-            this.companyTextBox = new System.Windows.Forms.TextBox();
-            this.idTextBox = new System.Windows.Forms.TextBox();
-            this.companyLabel = new System.Windows.Forms.Label();
-            this.idLabel = new System.Windows.Forms.Label();
-            this.addRecordButton = new System.Windows.Forms.Button();
+            this.dbTextBox = new System.Windows.Forms.TextBox();
+            this.serverTextBox = new System.Windows.Forms.TextBox();
+            this.dbLabel = new System.Windows.Forms.Label();
+            this.serverLabel = new System.Windows.Forms.Label();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.userTextBox = new System.Windows.Forms.TextBox();
+            this.passwordLabel = new System.Windows.Forms.Label();
+            this.userLabel = new System.Windows.Forms.Label();
+            this.connectUserButton = new System.Windows.Forms.Button();
             this.countRecordGroup = new System.Windows.Forms.GroupBox();
             this.countRecordButton = new System.Windows.Forms.Button();
             this.countRecordTextBox = new System.Windows.Forms.TextBox();
@@ -65,6 +71,8 @@ namespace IT481_Unit_2_Assignment.PAL
             // 
             // mainSplitContainer.Panel1
             // 
+            this.mainSplitContainer.Panel1.Controls.Add(this.tableLabel);
+            this.mainSplitContainer.Panel1.Controls.Add(this.tableComboBox);
             this.mainSplitContainer.Panel1.Controls.Add(this.addRecordGroup);
             this.mainSplitContainer.Panel1.Controls.Add(this.countRecordGroup);
             this.mainSplitContainer.Panel1.Controls.Add(this.viewDataButton);
@@ -77,62 +85,123 @@ namespace IT481_Unit_2_Assignment.PAL
             this.mainSplitContainer.SplitterDistance = 215;
             this.mainSplitContainer.TabIndex = 0;
             // 
+            // tableLabel
+            // 
+            this.tableLabel.AutoSize = true;
+            this.tableLabel.Location = new System.Drawing.Point(407, 135);
+            this.tableLabel.Name = "tableLabel";
+            this.tableLabel.Size = new System.Drawing.Size(37, 15);
+            this.tableLabel.TabIndex = 10;
+            this.tableLabel.Text = "Table:";
+            // 
+            // tableComboBox
+            // 
+            this.tableComboBox.Enabled = false;
+            this.tableComboBox.FormattingEnabled = true;
+            this.tableComboBox.Items.AddRange(new object[] {
+            "Customers",
+            "Employees",
+            "Orders"});
+            this.tableComboBox.Location = new System.Drawing.Point(471, 132);
+            this.tableComboBox.Name = "tableComboBox";
+            this.tableComboBox.Size = new System.Drawing.Size(283, 23);
+            this.tableComboBox.TabIndex = 4;
+            this.tableComboBox.SelectedIndexChanged += new System.EventHandler(this.tableComboBox_SelectedIndexChanged);
+            // 
             // addRecordGroup
             // 
-            this.addRecordGroup.Controls.Add(this.companyTextBox);
-            this.addRecordGroup.Controls.Add(this.idTextBox);
-            this.addRecordGroup.Controls.Add(this.companyLabel);
-            this.addRecordGroup.Controls.Add(this.idLabel);
-            this.addRecordGroup.Controls.Add(this.addRecordButton);
+            this.addRecordGroup.Controls.Add(this.dbTextBox);
+            this.addRecordGroup.Controls.Add(this.serverTextBox);
+            this.addRecordGroup.Controls.Add(this.dbLabel);
+            this.addRecordGroup.Controls.Add(this.serverLabel);
+            this.addRecordGroup.Controls.Add(this.passwordTextBox);
+            this.addRecordGroup.Controls.Add(this.userTextBox);
+            this.addRecordGroup.Controls.Add(this.passwordLabel);
+            this.addRecordGroup.Controls.Add(this.userLabel);
+            this.addRecordGroup.Controls.Add(this.connectUserButton);
             this.addRecordGroup.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.addRecordGroup.Location = new System.Drawing.Point(38, 10);
             this.addRecordGroup.Name = "addRecordGroup";
-            this.addRecordGroup.Size = new System.Drawing.Size(289, 147);
+            this.addRecordGroup.Size = new System.Drawing.Size(289, 172);
             this.addRecordGroup.TabIndex = 3;
             this.addRecordGroup.TabStop = false;
-            this.addRecordGroup.Text = "Add Record";
+            this.addRecordGroup.Text = "User Login";
             // 
-            // companyTextBox
+            // dbTextBox
             // 
-            this.companyTextBox.Location = new System.Drawing.Point(122, 45);
-            this.companyTextBox.Name = "companyTextBox";
-            this.companyTextBox.Size = new System.Drawing.Size(151, 23);
-            this.companyTextBox.TabIndex = 5;
+            this.dbTextBox.Location = new System.Drawing.Point(122, 93);
+            this.dbTextBox.Name = "dbTextBox";
+            this.dbTextBox.Size = new System.Drawing.Size(151, 23);
+            this.dbTextBox.TabIndex = 9;
+            this.dbTextBox.Text = "Northwind";
             // 
-            // idTextBox
+            // serverTextBox
             // 
-            this.idTextBox.Location = new System.Drawing.Point(122, 21);
-            this.idTextBox.Name = "idTextBox";
-            this.idTextBox.Size = new System.Drawing.Size(151, 23);
-            this.idTextBox.TabIndex = 4;
+            this.serverTextBox.Location = new System.Drawing.Point(122, 69);
+            this.serverTextBox.Name = "serverTextBox";
+            this.serverTextBox.Size = new System.Drawing.Size(151, 23);
+            this.serverTextBox.TabIndex = 8;
+            this.serverTextBox.Text = "dellG3";
             // 
-            // companyLabel
+            // dbLabel
             // 
-            this.companyLabel.AutoSize = true;
-            this.companyLabel.Location = new System.Drawing.Point(14, 48);
-            this.companyLabel.Name = "companyLabel";
-            this.companyLabel.Size = new System.Drawing.Size(97, 15);
-            this.companyLabel.TabIndex = 3;
-            this.companyLabel.Text = "Company Name:";
+            this.dbLabel.AutoSize = true;
+            this.dbLabel.Location = new System.Drawing.Point(14, 96);
+            this.dbLabel.Name = "dbLabel";
+            this.dbLabel.Size = new System.Drawing.Size(58, 15);
+            this.dbLabel.TabIndex = 7;
+            this.dbLabel.Text = "Database:";
             // 
-            // idLabel
+            // serverLabel
             // 
-            this.idLabel.AutoSize = true;
-            this.idLabel.Location = new System.Drawing.Point(14, 24);
-            this.idLabel.Name = "idLabel";
-            this.idLabel.Size = new System.Drawing.Size(21, 15);
-            this.idLabel.TabIndex = 2;
-            this.idLabel.Text = "ID:";
+            this.serverLabel.AutoSize = true;
+            this.serverLabel.Location = new System.Drawing.Point(14, 72);
+            this.serverLabel.Name = "serverLabel";
+            this.serverLabel.Size = new System.Drawing.Size(42, 15);
+            this.serverLabel.TabIndex = 6;
+            this.serverLabel.Text = "Server:";
             // 
-            // addRecordButton
+            // passwordTextBox
             // 
-            this.addRecordButton.Location = new System.Drawing.Point(14, 91);
-            this.addRecordButton.Name = "addRecordButton";
-            this.addRecordButton.Size = new System.Drawing.Size(259, 42);
-            this.addRecordButton.TabIndex = 1;
-            this.addRecordButton.Text = "Add Record";
-            this.addRecordButton.UseVisualStyleBackColor = true;
-            this.addRecordButton.Click += new System.EventHandler(this.addRecordButton_Click);
+            this.passwordTextBox.Location = new System.Drawing.Point(122, 45);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.Size = new System.Drawing.Size(151, 23);
+            this.passwordTextBox.TabIndex = 5;
+            // 
+            // userTextBox
+            // 
+            this.userTextBox.Location = new System.Drawing.Point(122, 21);
+            this.userTextBox.Name = "userTextBox";
+            this.userTextBox.Size = new System.Drawing.Size(151, 23);
+            this.userTextBox.TabIndex = 4;
+            // 
+            // passwordLabel
+            // 
+            this.passwordLabel.AutoSize = true;
+            this.passwordLabel.Location = new System.Drawing.Point(14, 48);
+            this.passwordLabel.Name = "passwordLabel";
+            this.passwordLabel.Size = new System.Drawing.Size(60, 15);
+            this.passwordLabel.TabIndex = 3;
+            this.passwordLabel.Text = "Password:";
+            // 
+            // userLabel
+            // 
+            this.userLabel.AutoSize = true;
+            this.userLabel.Location = new System.Drawing.Point(14, 24);
+            this.userLabel.Name = "userLabel";
+            this.userLabel.Size = new System.Drawing.Size(33, 15);
+            this.userLabel.TabIndex = 2;
+            this.userLabel.Text = "User:";
+            // 
+            // connectUserButton
+            // 
+            this.connectUserButton.Location = new System.Drawing.Point(14, 122);
+            this.connectUserButton.Name = "connectUserButton";
+            this.connectUserButton.Size = new System.Drawing.Size(259, 42);
+            this.connectUserButton.TabIndex = 1;
+            this.connectUserButton.Text = "Connect User";
+            this.connectUserButton.UseVisualStyleBackColor = true;
+            this.connectUserButton.Click += new System.EventHandler(this.connectUserButton_Click);
             // 
             // countRecordGroup
             // 
@@ -141,14 +210,15 @@ namespace IT481_Unit_2_Assignment.PAL
             this.countRecordGroup.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.countRecordGroup.Location = new System.Drawing.Point(839, 10);
             this.countRecordGroup.Name = "countRecordGroup";
-            this.countRecordGroup.Size = new System.Drawing.Size(289, 147);
+            this.countRecordGroup.Size = new System.Drawing.Size(289, 172);
             this.countRecordGroup.TabIndex = 2;
             this.countRecordGroup.TabStop = false;
             this.countRecordGroup.Text = "No. of Records";
             // 
             // countRecordButton
             // 
-            this.countRecordButton.Location = new System.Drawing.Point(14, 91);
+            this.countRecordButton.Enabled = false;
+            this.countRecordButton.Location = new System.Drawing.Point(14, 122);
             this.countRecordButton.Name = "countRecordButton";
             this.countRecordButton.Size = new System.Drawing.Size(259, 42);
             this.countRecordButton.TabIndex = 1;
@@ -160,18 +230,19 @@ namespace IT481_Unit_2_Assignment.PAL
             // 
             this.countRecordTextBox.BackColor = System.Drawing.SystemColors.Control;
             this.countRecordTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.countRecordTextBox.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.countRecordTextBox.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.countRecordTextBox.Location = new System.Drawing.Point(14, 21);
             this.countRecordTextBox.Multiline = true;
             this.countRecordTextBox.Name = "countRecordTextBox";
             this.countRecordTextBox.ReadOnly = true;
-            this.countRecordTextBox.Size = new System.Drawing.Size(259, 39);
+            this.countRecordTextBox.Size = new System.Drawing.Size(259, 95);
             this.countRecordTextBox.TabIndex = 0;
             this.countRecordTextBox.Text = "?";
             this.countRecordTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // viewDataButton
             // 
+            this.viewDataButton.Enabled = false;
             this.viewDataButton.Location = new System.Drawing.Point(333, 158);
             this.viewDataButton.Name = "viewDataButton";
             this.viewDataButton.Size = new System.Drawing.Size(500, 50);
@@ -186,7 +257,7 @@ namespace IT481_Unit_2_Assignment.PAL
             this.connectionGroup.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.connectionGroup.Location = new System.Drawing.Point(393, 10);
             this.connectionGroup.Name = "connectionGroup";
-            this.connectionGroup.Size = new System.Drawing.Size(377, 133);
+            this.connectionGroup.Size = new System.Drawing.Size(377, 111);
             this.connectionGroup.TabIndex = 0;
             this.connectionGroup.TabStop = false;
             this.connectionGroup.Text = "Connection Status";
@@ -200,7 +271,7 @@ namespace IT481_Unit_2_Assignment.PAL
             this.connectionTextBox.Name = "connectionTextBox";
             this.connectionTextBox.ReadOnly = true;
             this.connectionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.connectionTextBox.Size = new System.Drawing.Size(347, 94);
+            this.connectionTextBox.Size = new System.Drawing.Size(347, 81);
             this.connectionTextBox.TabIndex = 0;
             this.connectionTextBox.TabStop = false;
             this.connectionTextBox.Text = "Waiting For Connection...";
@@ -228,6 +299,7 @@ namespace IT481_Unit_2_Assignment.PAL
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainPage_FormClosing);
             this.Load += new System.EventHandler(this.MainPage_Load);
             this.mainSplitContainer.Panel1.ResumeLayout(false);
+            this.mainSplitContainer.Panel1.PerformLayout();
             this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
@@ -253,10 +325,16 @@ namespace IT481_Unit_2_Assignment.PAL
         private System.Windows.Forms.Button countRecordButton;
         private System.Windows.Forms.TextBox countRecordTextBox;
         private System.Windows.Forms.GroupBox addRecordGroup;
-        private System.Windows.Forms.Button addRecordButton;
-        private System.Windows.Forms.TextBox companyTextBox;
-        private System.Windows.Forms.TextBox idTextBox;
-        private System.Windows.Forms.Label companyLabel;
-        private System.Windows.Forms.Label idLabel;
+        private System.Windows.Forms.Button connectUserButton;
+        private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.TextBox userTextBox;
+        private System.Windows.Forms.Label passwordLabel;
+        private System.Windows.Forms.Label userLabel;
+        private System.Windows.Forms.TextBox dbTextBox;
+        private System.Windows.Forms.TextBox serverTextBox;
+        private System.Windows.Forms.Label dbLabel;
+        private System.Windows.Forms.Label serverLabel;
+        private System.Windows.Forms.Label tableLabel;
+        private System.Windows.Forms.ComboBox tableComboBox;
     }
 }

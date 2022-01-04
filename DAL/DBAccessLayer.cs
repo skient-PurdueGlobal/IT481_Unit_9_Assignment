@@ -1,14 +1,18 @@
 ﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Data;
 
-namespace IT481_Unit_2_Assignment.DAL
+using System.Diagnostics;
+
+namespace IT481_Unit_3_Assignment.DAL
 {
     class DBAccessLayer
     {
         //Variables
         string connString;
 
-        //Constructor
+        //Constructors
+        public DBAccessLayer() { }
         public DBAccessLayer(string connSt)
         {
             connString = connSt;
@@ -17,31 +21,60 @@ namespace IT481_Unit_2_Assignment.DAL
         //Methods
         public DataTable Get_Customers()
         {
-            SqlCommand command = new SqlCommand();
-            SqlConnection conn = new SqlConnection(connString);
-            conn.Open();
-            command.Connection = conn;
-            command.CommandText = "SELECT * FROM Customers";
-            SqlDataAdapter da = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
-            da.Fill(dt);
-            conn.Close();
+
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                SqlConnection conn = new SqlConnection(connString);
+                conn.Open();
+                command.Connection = conn;
+                command.CommandText = "SELECT * FROM Customers";
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                da.Fill(dt);
+                conn.Close();
+            }
+            catch (Exception ex) { Debug.WriteLine("Customers: " + connString + " / " + ex.Message); }
 
             return dt;
         }
-        public void Save_Customers(DataTable dt)
+        public DataTable Get_Employees()
         {
-            SqlCommand command = new SqlCommand();
-            SqlConnection conn = new SqlConnection(connString);
-            conn.Open();
-            command.Connection = conn;
-            command.CommandText = "SELECT * FROM Customers";
+            DataTable dt = new DataTable();
 
-            SqlDataAdapter da = new SqlDataAdapter(command);
-            SqlCommandBuilder cb = new SqlCommandBuilder(da);
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                SqlConnection conn = new SqlConnection(connString);
+                conn.Open();
+                command.Connection = conn;
+                command.CommandText = "SELECT * FROM Employees";
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                da.Fill(dt);
+                conn.Close();
+            }
+            catch (Exception ex) { Debug.WriteLine("Employees: " + ex.Message); }
 
-            da.UpdateCommand = cb.GetUpdateCommand();
-            da.Update(dt);
+            return dt;
+        }
+        public DataTable Get_Orders()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                SqlCommand command = new SqlCommand();
+                SqlConnection conn = new SqlConnection(connString);
+                conn.Open();
+                command.Connection = conn;
+                command.CommandText = "SELECT * FROM Orders";
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                da.Fill(dt);
+                conn.Close();
+            }
+            catch (Exception ex) { Debug.WriteLine("Orders: " + ex.Message); }
+
+            return dt;
         }
     }
 }
