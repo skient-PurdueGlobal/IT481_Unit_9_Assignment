@@ -295,7 +295,7 @@ namespace IT481_Unit_3_Assignment.PAL
             this.Controls.Add(this.mainSplitContainer);
             this.Name = "MainPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Unit 2 Assignment";
+            this.Text = "Unit 9 Assignment";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainPage_FormClosing);
             this.Load += new System.EventHandler(this.MainPage_Load);
             this.mainSplitContainer.Panel1.ResumeLayout(false);
